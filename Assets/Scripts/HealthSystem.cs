@@ -32,7 +32,7 @@ public class HealthSystem : MonoBehaviour
         return this.healthMax;
     }
 
-    public void damage(int damage)
+    public void damage(float damage)
     {
         if(gracePeriod <= 0)
         {

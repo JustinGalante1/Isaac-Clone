@@ -6,19 +6,22 @@ public class PlayerBasic : MonoBehaviour
 {
     private Rigidbody2D rb;
     private HealthSystem hs;
+    private PlayerStats ps;
+    private GameObject playerFace;
 
     //movement
     private float h;
     private float v;
-    public float speed;
 
     private void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
         hs = this.GetComponent<HealthSystem>();
+        ps = this.GetComponent<PlayerStats>();
+        playerFace = GameObject.FindGameObjectWithTag("PlayerFace");
 
-        hs.setHealth(100);
-        hs.setHealthMax(100);
+        //hs.setHealth(100);
+        //hs.setHealthMax(100);
         hs.setHealthDisplay();
     }
 
@@ -44,17 +47,9 @@ public class PlayerBasic : MonoBehaviour
         Vector2 moveY = rb.transform.up * v;
         Vector2 movement = moveX + moveY;
 
-        movement = movement * speed * Time.deltaTime;
+        movement = movement * ps.getSpeed() * 6.5f * Time.deltaTime;
 
         rb.MovePosition(new Vector2(transform.position.x, transform.position.y) + movement);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.collider.tag != "Floor")
-        {
-            //Debug.Log(collision.collider.tag);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)

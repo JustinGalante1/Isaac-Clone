@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyBasic : MonoBehaviour
+public class EnemyMove : MonoBehaviour
 {
     public Transform playerPosition;
 
@@ -18,8 +18,6 @@ public class EnemyBasic : MonoBehaviour
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
 
-    public bool isChampion;
-
     void Start()
     {
         //playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
@@ -33,7 +31,6 @@ public class EnemyBasic : MonoBehaviour
     {
         if (seeker.IsDone())
         {
-            //print("hi");
             seeker.StartPath(rb.position, playerPosition.position, onPathComplete);
         }
     }
@@ -45,7 +42,6 @@ public class EnemyBasic : MonoBehaviour
             path = p;
             currentWaypoint = 0;
         }
-
     }
 
     private void FixedUpdate()
@@ -81,26 +77,4 @@ public class EnemyBasic : MonoBehaviour
             currentWaypoint++;
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.collider.tag == "Player")
-        {
-            HealthSystem playerHs = collision.collider.GetComponent<HealthSystem>();
-            if (isChampion)
-            {
-                playerHs.damage(20);
-            }
-            else
-            {
-                playerHs.damage(10);
-            }
-            if (playerHs.getGracePeriod() <= 0)
-            {
-                playerHs.setGracePeriod();
-            }
-        }
-    }
-
-
 }
