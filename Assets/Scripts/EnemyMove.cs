@@ -5,7 +5,7 @@ using Pathfinding;
 
 public class EnemyMove : MonoBehaviour
 {
-    public Transform playerPosition;
+    private Transform playerPosition;
 
     private Rigidbody2D rb;
     private Seeker seeker;
@@ -20,7 +20,7 @@ public class EnemyMove : MonoBehaviour
 
     void Start()
     {
-        //playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        playerPosition = GameObject.Find("Player").transform;
         rb = this.GetComponent<Rigidbody2D>();
         seeker = this.GetComponent<Seeker>();
 
